@@ -175,6 +175,16 @@ func BenchmarkRealDataParOr(b *testing.B) {
 	})
 }
 
+func BenchmarkRealDataOr(b *testing.B) {
+	benchmarkRealDataAggregate(b, func(bitmaps []*Bitmap) uint64 {
+		t := uint64(0)
+		for i := 1; i < len(bitmaps); i++ {
+			t += Or(bitmaps[i-1], bitmaps[i]).GetCardinality()
+		}
+		return t
+	})
+}
+
 func BenchmarkRealDataParHeapOr(b *testing.B) {
 	benchmarkRealDataAggregate(b, func(bitmaps []*Bitmap) uint64 {
 		return ParHeapOr(0, bitmaps...).GetCardinality()

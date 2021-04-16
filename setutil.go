@@ -1,5 +1,7 @@
 package roaring
 
+import "unsafe"
+
 func equal(a, b []uint16) bool {
 	if len(a) != len(b) {
 		return false
@@ -547,4 +549,18 @@ func binarySearch(array []uint16, ikey uint16) int {
 		}
 	}
 	return -(low + 1)
+}
+
+// compareuint16 compares two number in a branchless manner.
+// Returns -1 if s1 < s2, zero otherwise.
+func compareuint16(x, y uint16) int {
+	return (int(x) - int(y)) >> 63
+}
+
+// uint16SlicePtr returns a pointer at the given slice
+// index avoiding bound checks. Use cautiously.
+func uint16SlicePtr(slice []uint16, idx uint) *uint16 {
+	p := unsafe.Pointer(&slice[0])
+	indexp := (unsafe.Pointer)(uintptr(p) + 2*uintptr(idx))
+	return (*uint16)(indexp)
 }
