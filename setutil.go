@@ -248,9 +248,11 @@ func intersection2by2(
 	buffer []uint16) int {
 
 	if len(set1)*64 < len(set2) {
-		return onesidedgallopingintersect2by2(set1, set2, buffer)
+		// return onesidedgallopingintersect2by2(set1, set2, buffer)
+		return shotgun4Intersect(set1, set2, buffer)
 	} else if len(set2)*64 < len(set1) {
-		return onesidedgallopingintersect2by2(set2, set1, buffer)
+		// return onesidedgallopingintersect2by2(set2, set1, buffer)
+		return shotgun4Intersect(set2, set1, buffer)
 	} else {
 		return localintersect2by2(set1, set2, buffer)
 	}
@@ -615,38 +617,22 @@ func shotgun4Intersect(small, large, buf []uint16) int {
 		}
 
 		l1, l2, l3, l4 := large[idx1], large[idx2], large[idx3], large[idx4]
-		if idx4+1 < nL { // common case
-			idx1 -= branchlessComparator(l1, t1)
-			idx2 -= branchlessComparator(l2, t2)
-			idx3 -= branchlessComparator(l3, t3)
-			idx4 -= branchlessComparator(l4, t4)
+		idx1 -= branchlessComparator(l1, t1)
+		idx2 -= branchlessComparator(l2, t2)
+		idx3 -= branchlessComparator(l3, t3)
+		idx4 -= branchlessComparator(l4, t4)
+		if idx4 < nL { // common case
 			l1, l2, l3, l4 = large[idx1], large[idx2], large[idx3], large[idx4]
 		} else { // slow path
-			if l1 < t1 {
-				idx1++
-				if idx1 < nL {
-					l1 = large[idx1]
-				}
+			if idx1 < nL {
+				l1 = large[idx1]
 			}
-			if l2 < t2 {
-				idx2++
-				if idx2 < nL {
-					l2 = large[idx2]
-				}
+			if idx2 < nL {
+				l2 = large[idx2]
 			}
-			if l3 < t3 {
-				idx3++
-				if idx3 < nL {
-					l3 = large[idx3]
-				}
+			if idx3 < nL {
+				l3 = large[idx3]
 			}
-			if l4 < t4 {
-				idx4++
-				if idx4 < nL {
-					l4 = large[idx4]
-				}
-			}
-
 		}
 
 		if l1 == t1 {

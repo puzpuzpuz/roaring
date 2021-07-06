@@ -130,6 +130,11 @@ func TestSetUtilIntersectionCases(t *testing.T) {
 			expected: []uint16{},
 		},
 		{
+			a:        []uint16{2},
+			b:        []uint16{1},
+			expected: []uint16{},
+		},
+		{
 			a:        []uint16{1, 2},
 			b:        []uint16{2, 3},
 			expected: []uint16{2},
@@ -158,6 +163,21 @@ func TestSetUtilIntersectionCases(t *testing.T) {
 			a:        []uint16{10, 60, 100},
 			b:        []uint16{1, 2, 3, 5, 7, 11, 13, 16, 30, 40, 100, 131, 200},
 			expected: []uint16{100},
+		},
+		{
+			a:        []uint16{20, 30, 40, 50},
+			b:        []uint16{11, 12, 13, 40},
+			expected: []uint16{40},
+		},
+		{
+			a:        []uint16{10, 20, 30, 40},
+			b:        []uint16{21, 22, 23, 24},
+			expected: []uint16{},
+		},
+		{
+			a:        []uint16{0, 1, 8, 9},
+			b:        []uint16{1, 2, 3, 4, 5, 6, 7, 8},
+			expected: []uint16{1, 8},
 		},
 	}
 
