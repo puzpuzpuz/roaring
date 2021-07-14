@@ -44,18 +44,6 @@ func TestSetUtilDifference(t *testing.T) {
 	assert.Equal(t, expectedresult, result)
 }
 
-func TestCompareuint16(t *testing.T) {
-	assert.Equal(t, 0, compareuint16(42, 42))
-	assert.Equal(t, 1, compareuint16(1, 42))
-	assert.Equal(t, 2, compareuint16(42, 1))
-}
-
-func TestCompareuint(t *testing.T) {
-	assert.Equal(t, 0, compareuint(42, 42))
-	assert.Equal(t, 1, compareuint(1, 42))
-	assert.Equal(t, 2, compareuint(42, 1))
-}
-
 func TestSetUtilUnion(t *testing.T) {
 	data1 := []uint16{0, 1, 2, 3, 4, 9}
 	data2 := []uint16{2, 3, 4, 5, 8, 9, 11}
