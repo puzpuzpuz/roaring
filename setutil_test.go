@@ -207,10 +207,10 @@ func BenchmarkUnion2by2(b *testing.B) {
 	b.Run("union2by2", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
-			for i := 0; i < sarrsnum; i++ {
-				union2by2(sarrs[i], s2, buf)
-				union2by2(sarrs[i], s3, buf)
-				union2by2(sarrs[i], s4, buf)
+			for j := 0; j < sarrsnum; j++ {
+				union2by2(sarrs[j], s2, buf)
+				union2by2(sarrs[j], s3, buf)
+				union2by2(sarrs[j], s4, buf)
 			}
 		}
 	})
